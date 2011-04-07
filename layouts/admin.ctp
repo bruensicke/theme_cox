@@ -1,52 +1,37 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html>
 <head>
+	<meta charset="utf-8"/>
 	<?php
-	echo $this->Html->charset();
-	echo $this->Html->tag('title', String::insert(Configure::read('App.title'), Set::flatten(array_merge(Configure::read('App'), array('title' => $title_for_layout)))));
 	echo $this->Html->meta('icon');
-
-	echo $this->Html->css(array(
-		'/flour/css/blueprint',
-		'default.css',
-		'theme.css',
-		'admin.css',
-		'admin.form.css',
-		'admin.table.css',
-		'tipsy',
-		'ibutton',
-		'ui-lightness/jqueryui'
-	));
-	echo $this->Html->script(array(
-		'/flour/js/jquery',
-		'/flour/js/jquery.ui',
-		'/flour/js/jquery.form',
-		'/flour/js/jquery.tipsy',
-		'/flour/js/jquery.blockui',
-		'ibutton',
-		'init'
-	));
-
+	echo $this->Html->tag('title', String::insert(Configure::read('Admin.Settings.title'), Set::flatten(array_merge(Configure::read('Admin.Settings'), array('title' => $title_for_layout)))));
+	echo $this->Html->css(Configure::read('Admin.Settings.styles'));
+	echo $this->Html->script(Configure::read('Admin.Settings.scripts'));
 	echo $scripts_for_layout;
 	?>
+	<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<!-- Adding "maximum-scale=1" fixes the Mobile Safari auto-zoom bug: http://filamentgroup.com/examples/iosScaleBug/ -->
+	<meta name="robots" content="noindex"/>
+	<meta http-equiv="x-dns-prefetch-control" content="off"/>
 </head>
 <body>
-	<div id="container">
-		<div id="header">
-			<?php echo $this->element('header'); ?>
-		</div>
-		<div id="content">
+	<div id="page">
+		<header id="header">
+			<?php echo $this->element('admin/header'); ?>
+		</header>
+		<div id="main">
 			<?php
-			echo $this->Session->flash();
+			echo $this->element('admin/flash');
 			echo $content_for_layout;
 			?>
+			<div class="clear"></div>
 		</div>
-		<div id="footer">
-			<?php echo $this->element('footer'); ?>
-		</div>
-		<div id="copyright">
-			<?php echo $this->element('copyright'); ?>
-		</div>
+		<footer id="footer">
+			<?php echo $this->element('admin/footer'); ?>
+		</footer>
 	</div>
 	<?php echo $this->element('sql_dump'); ?>
 </body>
